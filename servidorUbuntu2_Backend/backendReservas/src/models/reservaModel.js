@@ -127,22 +127,18 @@ async function obtenerReservasPorUsuario(idUsuario) {
     return rows;
 }
 
-async function obtenerDisponibilidad(fechaEntrada, fechaSalida) {
-    const axios = require('axios');
-    const resHab = await axios.get('http://192.168.100.3:3002/api/habitaciones');
-    const todasHabitaciones = resHab.data;
-
+async function obtenerDisponibilidad(fechaEntrada, fechaSalida, todasHabitaciones) {
     await connection.query(`
-        UPDATE reserva 
-        SET estado = 'Cancelada' 
-        WHERE estado = 'Pendiente' 
+        UPDATE reserva
+        SET estado = 'Cancelada'
+        WHERE estado = 'Pendiente'
         AND TIMESTAMPDIFF(SECOND, fechaCreacion, NOW()) >= 120
     `).catch(() => {});
 
     const [ocupadas] = await connection.query(`
         SELECT DISTINCT idHabitacion FROM reserva
         WHERE (
-            estado IN ('Confirmada', 'Abonada') 
+            estado IN ('Confirmada', 'Abonada')
             OR (estado = 'Pendiente' AND TIMESTAMPDIFF(SECOND, fechaCreacion, NOW()) < 120)
         )
         AND (fechaEntrada < ? AND fechaSalida > ?)
