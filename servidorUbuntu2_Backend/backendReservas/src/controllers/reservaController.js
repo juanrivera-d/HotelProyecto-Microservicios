@@ -54,8 +54,15 @@ const crearReserva = async (req, res) => {
 const consultarDisponibilidad = async (req, res) => {
     try {
         const { fechaEntrada, fechaSalida } = req.query;
-        // Corregido: llamar a obtenerDisponibilidad en lugar de obtenerDisponibles
-        const habitaciones = await reservaModel.obtenerDisponibilidad(fechaEntrada, fechaSalida);
+        const authHeader = req.headers.authorization;
+        const config = authHeader ? { headers: { Authorization: authHeader } } : {};
+
+        // 1. Obtener todas las habitaciones desde el microservicio correspondiente
+        const resHab = await axios.get(URL_HABITACIONES, config);
+        const todasHabitaciones = resHab.data;
+
+        // 2. Pasar la lista de habitaciones al modelo para filtrar las disponibles
+        const habitaciones = await reservaModel.obtenerDisponibilidad(fechaEntrada, fechaSalida, todasHabitaciones);
         return res.json(habitaciones);
     } catch (error) {
         console.error('Error al consultar disponibilidad:', error);
