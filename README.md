@@ -163,7 +163,7 @@ node src/index.js
 
 ---
 
-## 🔐 Seguridad y Autenticación
+## Seguridad y Autenticación
 
 1. **Tokens JWT:** El microservicio de usuarios emite un token con 24 horas de vigencia tras el inicio de sesión exitoso.
 2. **Almacenamiento:** El token se almacena en `localStorage` bajo la llave `'token'` junto con el objeto de usuario en `'usuario'`.
