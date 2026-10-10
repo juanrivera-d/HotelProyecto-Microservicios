@@ -1,0 +1,8 @@
+# Dependencias de Node.js (se instalan con npm install)
+**/node_modules/
+
+# Archivos de entorno y logs
+*.log
+.env
+.DS_Store
+Thumbs.db
