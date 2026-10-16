@@ -70,7 +70,7 @@ hotel-leyton-proyecto/
 
 ### Paso 1: Configuración de Bases de Datos en MySQL (Servidor 2)
 
-Ingresa al servidor donde se aloja el motor de base de datos MySQL (servidorUbuntu2) y ejecuta la importación de cada script almacenado en la carpeta `servidorUbuntu2_Backend/Database/`:
+Ingresa al servidor donde se aloja el motor de base de datos MySQL (servidorUbuntu2) y ejecuta la importación de cada script almacenado en la carpeta `HotelLeyton-Proyecto/Database/`:
 
 # Entrar a la carpeta compartida donde clonaron el repositorio
 cd /vagrant/HotelLeyton-Proyecto/Database/
